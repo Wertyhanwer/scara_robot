@@ -16,7 +16,7 @@ class HalDriverStruct:
         self._create_write_component_pins()
 
     def _create_read_component_pins(self):
-        self._actual_pos = self._hal_control_component.newpin(f"actual-pos", hal.HAL_INT32, hal.HAL_IN)
+        self._actual_position = self._hal_control_component.newpin(f"actual-pos", hal.HAL_INT32, hal.HAL_IN)
         self._status_word = self._hal_control_component.newpin(f"statusword", hal.HAL_UINT16, hal.HAL_IN)
         self._error_code = self._hal_control_component.newpin(f"errorcode", hal.HAL_UINT16, hal.HAL_IN)
 
@@ -26,9 +26,10 @@ class HalDriverStruct:
         self._estop_button = self._hal_control_component.newpin(f"estop-button", hal.HAL_BIT, hal.HAL_OUT)
         self._driver_halt = self._hal_control_component.newpin(f"drv-halt", hal.HAL_BIT, hal.HAL_OUT)
         self._driver_fault_reset = self._hal_control_component.newpin(f"drv-fault-reset", hal.HAL_BIT, hal.HAL_OUT)
+        self._enable_drive_button = self._hal_control_component.newpin(f"enable-drive-button", hal.HAL_BIT, hal.HAL_OUT)
 
     def _connect_local_pins_to_actual(self):
-        hal.connect(self._actual_pos.fullname, f"{self._driver_id}-{self._actual_pos.name}")
+        hal.connect(self._actual_position.fullname, f"{self._driver_id}-{self._actual_position.name}")
         hal.connect(self._status_word.fullname, f"{self._driver_id}-{self._status_word.name}")
         hal.connect(self._error_code.fullname, f"{self._driver_id}-{self._error_code.name}")
 
@@ -37,10 +38,11 @@ class HalDriverStruct:
         hal.connect(self._estop_button.fullname, f"{self._driver_id}-{self._estop_button.name}")
         hal.connect(self._driver_halt.fullname, f"{self._driver_id}-{self._driver_halt.name}")
         hal.connect(self._driver_fault_reset.fullname, f"{self._driver_id}-{self._driver_fault_reset.name}")
+        hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
 
     @property
-    def actual_pos(self):
-        return self._actual_pos.value
+    def actual_position(self):
+        return self._actual_position.value
 
     @property
     def status_word(self):
@@ -89,6 +91,14 @@ class HalDriverStruct:
     @driver_fault_reset.setter
     def driver_fault_reset(self, state):
         self._driver_fault_reset.value = state
+
+    @property
+    def enable_drive_button(self):
+        return self._enable_drive_button.value
+
+    @enable_drive_button.setter
+    def enable_drive_button(self, state):
+        self._enable_drive_button.value = state
 
 
 

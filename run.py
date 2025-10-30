@@ -1,16 +1,11 @@
-# This is a sample Python script.
+import time
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from driver_controller.driver_controller import DriverController
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+driver_controller = DriverController(0, "driver_controller")
+driver_controller.start()
+driver_controller.set_target_position(5)
+time.sleep(2)
+driver_controller.set_target_position(15)
+time.sleep(2)
+driver_controller.set_target_position(30)
