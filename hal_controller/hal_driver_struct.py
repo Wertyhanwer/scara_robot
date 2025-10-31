@@ -1,9 +1,11 @@
-
+import hal
+from driver_pins_name_template import DriverPinsNameTemplate
+from driver_pin import DriverPin
 
 class HalDriverStruct:
     def __init__(self, drive_number: int, control_component_name: str):
         self._hal_control_component = hal.component(control_component_name)
-        self._hal_control_component_name = self._hal_control_component.name
+        self._hal_control_component_name = control_component_name
         self._driver_id = str(drive_number)
         self._create_component_pins()
 
@@ -16,17 +18,17 @@ class HalDriverStruct:
         self._create_write_component_pins()
 
     def _create_read_component_pins(self):
-        self._actual_position = self._hal_control_component.newpin(f"actual-pos", hal.HAL_INT32, hal.HAL_IN)
-        self._status_word = self._hal_control_component.newpin(f"statusword", hal.HAL_UINT16, hal.HAL_IN)
-        self._error_code = self._hal_control_component.newpin(f"errorcode", hal.HAL_UINT16, hal.HAL_IN)
+        self._actual_position = DriverPin(self, DriverPinsNameTemplate.actual_position, hal.HAL_FLOAT, hal.HAL_IN)
+        self._status_word = DriverPin(self, DriverPinsNameTemplate.status_word, hal.HAL_FLOAT, hal.HAL_IN)
+        self._error_code = DriverPin(self, DriverPinsNameTemplate.error_code, hal.HAL_FLOAT, hal.HAL_IN)
 
     def _create_write_component_pins(self):
-        self._command_pos_degrees = self._hal_control_component.newpin(f"cmd-pos-deg", hal.HAL_INT32, hal.HAL_OUT)
-        self._max_speed_degrees = self._hal_control_component.newpin(f"max-speed", hal.HAL_UDINT, hal.HAL_OUT)
-        self._estop_button = self._hal_control_component.newpin(f"estop-button", hal.HAL_BIT, hal.HAL_OUT)
-        self._driver_halt = self._hal_control_component.newpin(f"drv-halt", hal.HAL_BIT, hal.HAL_OUT)
-        self._driver_fault_reset = self._hal_control_component.newpin(f"drv-fault-reset", hal.HAL_BIT, hal.HAL_OUT)
-        self._enable_drive_button = self._hal_control_component.newpin(f"enable-drive-button", hal.HAL_BIT, hal.HAL_OUT)
+        self._command_pos_degrees = DriverPin(self, DriverPinsNameTemplate.command_pos_degrees, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._max_speed_degrees = DriverPin(self, DriverPinsNameTemplate.max_speed_degrees, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._estop_button = DriverPin(self, DriverPinsNameTemplate.estop_button, hal.HAL_BIT, hal.HAL_OUT)
+        self._driver_halt = DriverPin(self, DriverPinsNameTemplate.driver_halt, hal.HAL_BIT, hal.HAL_OUT)
+        self._driver_fault_reset = DriverPin(self, DriverPinsNameTemplate.driver_fault_reset, hal.HAL_BIT, hal.HAL_OUT)
+        self._enable_drive_button = DriverPin(self, DriverPinsNameTemplate.enable_drive_button, hal.HAL_BIT, hal.HAL_OUT)
 
     def _connect_local_pins_to_actual(self):
         hal.connect(self._actual_position.fullname, f"{self._driver_id}-{self._actual_position.name}")
@@ -39,66 +41,76 @@ class HalDriverStruct:
         hal.connect(self._driver_halt.fullname, f"{self._driver_id}-{self._driver_halt.name}")
         hal.connect(self._driver_fault_reset.fullname, f"{self._driver_id}-{self._driver_fault_reset.name}")
         hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
+        
+
+
+    @property
+    def hal_control_component_name(self):
+        return self._hal_control_component_name
+
+    @property
+    def hal_control_component(self):
+        return self._hal_control_component
 
     @property
     def actual_position(self):
-        return self._actual_position.value
+        return self._hal_control_component[self._actual_position.name]
 
     @property
     def status_word(self):
-        return self._status_word.value
+        return self._hal_control_component[self._status_word.name]
 
     @property
     def error_code(self):
-        return self._error_code.value
+        return self._hal_control_component[self._error_code.name]
 
     @property
     def command_pos_degrees(self):
-        return self._command_pos_degrees.value
+        return self._hal_control_component[self._command_pos_degrees.name]
 
     @command_pos_degrees.setter
     def command_pos_degrees(self, position):
-        self._command_pos_degrees.value = position
+        self._hal_control_component[self._command_pos_degrees.name] = position
 
     @property
     def max_speed_degrees(self):
-        return self._max_speed_degrees.value
+        return self._hal_control_component[self._max_speed_degrees.name]
 
     @max_speed_degrees.setter
     def max_speed_degrees(self, speed):
-        self._max_speed_degrees.value = speed
+        self._hal_control_component[self._max_speed_degrees.name] = speed
 
     @property
     def estop_button(self):
-        return self._estop_button.value
+        return self._hal_control_component[self._estop_button.name]
 
     @estop_button.setter
     def estop_button(self, state):
-        self._estop_button.value = state
+        self._hal_control_component[self._estop_button.name] = state
 
     @property
     def driver_halt(self):
-        return self._driver_halt.value
+        return self._hal_control_component[self._driver_halt.name]
 
     @driver_halt.setter
     def driver_halt(self, state):
-        self._driver_halt.value = state
+        self._hal_control_component[self._driver_halt.name] = state
 
     @property
     def driver_fault_reset(self):
-        return self._driver_fault_reset.value
+        return self._hal_control_component[self._driver_fault_reset.name]
 
     @driver_fault_reset.setter
     def driver_fault_reset(self, state):
-        self._driver_fault_reset.value = state
+        self._hal_control_component[self._driver_fault_reset.name] = state
 
     @property
     def enable_drive_button(self):
-        return self._enable_drive_button.value
+        return self._hal_control_component[self._enable_drive_button.name]
 
     @enable_drive_button.setter
     def enable_drive_button(self, state):
-        self._enable_drive_button.value = state
+        self._hal_control_component[self._enable_drive_button.name] = state
 
 
 
