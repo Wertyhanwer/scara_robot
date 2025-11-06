@@ -47,6 +47,9 @@ def main():
             
             driver_1.set_target_position(angle_1)
             driver_2.set_target_position(angle_2)
+
+            driver_1.lcec_run()
+            driver_2.lcec_run()
             
             if int(elapsed * 10) % 10 == 0:
                 print(f"[{elapsed:6.1f}s] Драйвер 1: {angle_1:6.2f}° | Драйвер 2: {angle_2:6.2f}°")

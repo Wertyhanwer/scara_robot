@@ -13,6 +13,8 @@ class DriverPinsNameTemplate(Enum):
     driver_fault_reset = "drv-fault-reset"
     enable_drive_button = "enable-drive-button"
 
+    lcec_control_run = "lcec-control-run"
+
 
 
 

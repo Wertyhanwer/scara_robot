@@ -36,3 +36,9 @@ class DriverController:
 
     def get_actual_position(self):
         return self._hal_driver_controller.actual_position
+
+    def lcec_run(self):
+        self._hal_driver_controller.lcec_run = True
+
+    def lcec_stop(self):
+        self._hal_driver_controller.lcec_run = False

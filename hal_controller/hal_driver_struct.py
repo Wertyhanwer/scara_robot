@@ -30,6 +30,8 @@ class HalDriverStruct:
         self._driver_fault_reset = DriverPin(self, DriverPinsNameTemplate.driver_fault_reset, hal.HAL_BIT, hal.HAL_OUT)
         self._enable_drive_button = DriverPin(self, DriverPinsNameTemplate.enable_drive_button, hal.HAL_BIT, hal.HAL_OUT)
 
+        self._lcec_control_run = DriverPin(self,DriverPinsNameTemplate.lcec_control_run, hal.HAL_BIT, hal.HAL_OUT)
+
     def _connect_local_pins_to_actual(self):
         hal.connect(self._actual_position.fullname, f"{self._driver_id}-{self._actual_position.name}")
         hal.connect(self._status_word.fullname, f"{self._driver_id}-{self._status_word.name}")
@@ -41,7 +43,11 @@ class HalDriverStruct:
         hal.connect(self._driver_halt.fullname, f"{self._driver_id}-{self._driver_halt.name}")
         hal.connect(self._driver_fault_reset.fullname, f"{self._driver_id}-{self._driver_fault_reset.name}")
         hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
+
+        hal.connect(self._lcec_control_run.fullname, f"lcec.0.{self._driver_id}.Control.Run")
+
         
+
 
 
     @property
@@ -112,7 +118,13 @@ class HalDriverStruct:
     def enable_drive_button(self, state):
         self._hal_control_component[self._enable_drive_button.name] = state
 
+    @property
+    def lcec_control_run(self):
+        return self._hal_control_component[self._lcec_control_run.name]
 
+    @lcec_control_run.setter
+    def lcec_control_run(self, control: bool):
+        self._hal_control_component[self._lcec_control_run.name] = control
 
 
 
