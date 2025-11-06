@@ -33,3 +33,6 @@ class DriverController:
 
     def set_target_position(self, position: int):
         self._hal_driver_controller.command_pos_degrees = position
+
+    def get_actual_position(self):
+        return self._hal_driver_controller.actual_position
