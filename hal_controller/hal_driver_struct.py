@@ -29,8 +29,9 @@ class HalDriverStruct:
         self._driver_halt = DriverPin(self, DriverPinsNameTemplate.driver_halt, hal.HAL_BIT, hal.HAL_OUT)
         self._driver_fault_reset = DriverPin(self, DriverPinsNameTemplate.driver_fault_reset, hal.HAL_BIT, hal.HAL_OUT)
         self._enable_drive_button = DriverPin(self, DriverPinsNameTemplate.enable_drive_button, hal.HAL_BIT, hal.HAL_OUT)
-
-        self._control_run = DriverPin(self,DriverPinsNameTemplate.control_run, hal.HAL_BIT, hal.HAL_OUT)
+        self._control_run = DriverPin(self, DriverPinsNameTemplate.control_run, hal.HAL_BIT, hal.HAL_OUT)
+        self._target_velocity = DriverPin(self, DriverPinsNameTemplate.target_velocity, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._acceleration = DriverPin(self, DriverPinsNameTemplate.acceleration, hal.HAL_FLOAT, hal.HAL_OUT)
 
     def _connect_local_pins_to_actual(self):
         hal.connect(self._actual_position.fullname, f"{self._driver_id}-{self._actual_position.name}")
@@ -43,9 +44,9 @@ class HalDriverStruct:
         hal.connect(self._driver_halt.fullname, f"{self._driver_id}-{self._driver_halt.name}")
         hal.connect(self._driver_fault_reset.fullname, f"{self._driver_id}-{self._driver_fault_reset.name}")
         hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
-
         hal.connect(self._control_run.fullname, f"{self._driver_id}-{self._control_run.name}")
-
+        hal.connect(self._target_velocity.fullname, f"{self._driver_id}-{self._target_velocity.name}")
+        hal.close(self._acceleration.fullname, f"{self._driver_id}-{self._acceleration.name}")
         
 
 
@@ -125,3 +126,19 @@ class HalDriverStruct:
     @control_run.setter
     def control_run(self, control: bool):
         self._hal_control_component[self._control_run.name] = control
+
+    @property
+    def target_velocity(self):
+        return self._hal_control_component[self._target_velocity.name]
+
+    @target_velocity.setter
+    def target_velocity(self, velocity: float):
+        self._hal_control_component[self._target_velocity.name] = velocity
+
+    @property
+    def acceleration(self):
+        return self._hal_control_component[self._acceleration.name]
+
+    @acceleration.setter
+    def acceleration(self, acceleration: float):
+        self._hal_control_component[self._acceleration.name] = acceleration

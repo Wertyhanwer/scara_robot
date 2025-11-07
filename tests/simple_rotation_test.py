@@ -3,8 +3,8 @@ from driver_controller.driver_controller import DriverController
 
 
 def main():
-    MIN_ANGLE = -5.0
-    MAX_ANGLE = 5.0
+    MIN_ANGLE = -10.0
+    MAX_ANGLE = 10.0
 
 
     driver_1 = DriverController(0, "test_driver_controller_0")
@@ -14,26 +14,36 @@ def main():
     driver_1.start()
     driver_2.start()
 
+    driver_1.set_target_velocity(25)
+    driver_2.set_target_velocity(25)
+
+    driver_1.set_acceleration(50)
+    driver_2.set_acceleration(50)
+
     time.sleep(3)
     angle_1 = angle_2 = MAX_ANGLE
 
     try:
         while True:
-            if driver_1.get_actual_position() >= MAX_ANGLE:
+            if driver_1.get_actual_position() >= MAX_ANGLE - 0.2:
                 angle_1 = MIN_ANGLE
-            if driver_1.get_actual_position() <= MIN_ANGLE:
+                driver_1.control_stop()
+            if driver_1.get_actual_position() <= MIN_ANGLE + 0.2:
                 angle_1 = MAX_ANGLE
-            if driver_2.get_actual_position() >= MAX_ANGLE:
+                driver_1.control_stop()
+            if driver_2.get_actual_position() >= MAX_ANGLE - 0.2:
                 angle_2 = MIN_ANGLE
-            if driver_2.get_actual_position() <= MIN_ANGLE:
+                driver_2.control_stop()
+            if driver_2.get_actual_position() <= MIN_ANGLE + 0.2:
                 angle_2 = MAX_ANGLE
+                driver_2.control_stop()
 
 
             driver_1.set_target_position(angle_1)
             driver_2.set_target_position(angle_2)
 
-            driver_1.lcec_run()
-            driver_2.lcec_run()
+            driver_1.control_run()
+            driver_2.control_run()
 
             time.sleep(0.01)
 
@@ -49,4 +59,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

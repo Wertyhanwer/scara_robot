@@ -37,8 +37,20 @@ class DriverController:
     def get_actual_position(self):
         return self._hal_driver_controller.actual_position
 
-    def lcec_run(self):
+    def control_run(self):
         self._hal_driver_controller.control_run = True
 
-    def lcec_stop(self):
+    def control_stop(self):
         self._hal_driver_controller.control_run = False
+
+    def get_target_velocity(self):
+        return self._hal_driver_controller.target_velocity
+
+    def set_target_velocity(self, velocity: float):
+        self._hal_driver_controller.target_velocity = velocity
+
+    def get_acceleration(self):
+        return self._hal_driver_controller.acceleration
+
+    def set_acceleration(self, acceleration: float):
+        self._hal_driver_controller.acceleration = acceleration

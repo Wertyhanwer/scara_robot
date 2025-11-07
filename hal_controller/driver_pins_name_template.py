@@ -13,3 +13,5 @@ class DriverPinsNameTemplate(Enum):
     driver_fault_reset = "drv-fault-reset"
     enable_drive_button = "enable-drive-button"
     control_run = "control-run"
+    target_velocity = "target-vel"
+    acceleration = "accel"
