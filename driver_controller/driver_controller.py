@@ -20,7 +20,7 @@ class DriverController:
         self._hal_driver_controller.driver_halt = True
 
     def stop(self):
-        self._hal_driver_controller.driver_halt = True
+        self._hal_driver_controller.driver_halt = False
         self._hal_driver_controller.estop_button = False
         time.sleep(2)  # TODO: Избавиться от подобного подхода когда не будет гореть
         self._hal_driver_controller.enable_drive_button = False
@@ -32,7 +32,13 @@ class DriverController:
         ...
 
     def set_target_position(self, position: int):
-        self._hal_driver_controller.command_pos_degrees = position
+        self._hal_driver_controller.target_pos = position
 
     def get_actual_position(self):
         return self._hal_driver_controller.actual_position
+
+    def lcec_run(self):
+        self._hal_driver_controller.control_run = True
+
+    def lcec_stop(self):
+        self._hal_driver_controller.control_run = False
