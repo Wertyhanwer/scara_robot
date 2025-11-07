@@ -77,8 +77,11 @@ halcmd net 1-errorcode       lcec.0.1.ErrorCode
 halcmd net 1-torque          lcec.0.1.Torque
 
 ######### ГРУППОВЫЕ сигналы (если нужно крутить обе оси одной ручкой)
-halcmd net both-accel  lcec.0.0.Acceleration  lcec.0.1.Acceleration
-halcmd net both-decel  lcec.0.0.Deceleration  lcec.0.1.Deceleration
+halcmd net 0-accel  lcec.0.0.Acceleration  
+halcmd net 0-decel  lcec.0.0.Deceleration  
+
+halcmd net 1-accel  lcec.0.1.Acceleration
+halcmd net 1-decel  lcec.0.1.Deceleration
 
 # добавляем запись после формирования команд
 halcmd addf lcec.write-all servo-thread
