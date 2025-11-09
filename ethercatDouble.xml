@@ -1,13 +1,11 @@
 <masters>
     <master idx="0" appTimePeriod="1000000" refClockSyncCycles="1">
+        <!--  ===== X (2^17 ticks/rev) =====  -->
 
         <!--  ===== Y (2^23 ticks/rev) =====  -->
         <slave idx="0" type="generic" vid="0x00000766" pid="0x00000402" configPdos="true">
             <!--  PPM  -->
             <sdoConfig idx="6060" subIdx="0">
-                <sdoDataRaw data="01"/>
-            </sdoConfig>
-                       <sdoConfig idx="605D" subIdx="0">
                 <sdoDataRaw data="01"/>
             </sdoConfig>
             <syncManager idx="0" dir="out"/>
@@ -31,10 +29,10 @@
                         <complexEntry bitLen="6"/>
                     </pdoEntry>
                     <!--  Градусы  -->
-                    <pdoEntry idx="607A" subIdx="00" bitLen="32" halPin="TargetPosition" halType="float" scale="23301,6888888888888"/>
-                    <pdoEntry idx="6081" subIdx="00" bitLen="32" halPin="ProfileVelocity" halType="float" scale="23301,6888888888888"/>
-                    <pdoEntry idx="6083" subIdx="00" bitLen="32" halPin="Acceleration" halType="float" scale="23301,6888888888888"/>
-                    <pdoEntry idx="6084" subIdx="00" bitLen="32" halPin="Deceleration" halType="float" scale="23301,6888888888888"/>
+                    <pdoEntry idx="607A" subIdx="00" bitLen="32" halPin="TargetPosition" halType="float" scale="1165084,44444"/>
+                    <pdoEntry idx="6081" subIdx="00" bitLen="32" halPin="ProfileVelocity" halType="float" scale="1165084,44444"/>
+                    <pdoEntry idx="6083" subIdx="00" bitLen="32" halPin="Acceleration" halType="float" scale="1165084,44444"/>
+                    <pdoEntry idx="6084" subIdx="00" bitLen="32" halPin="Deceleration" halType="float" scale="1165084,44444"/>
                     <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
@@ -42,13 +40,62 @@
                 <pdo idx="1A00">
                     <pdoEntry idx="603F" subIdx="00" bitLen="16" halPin="ErrorCode" halType="U32"/>
                     <pdoEntry idx="6041" subIdx="00" bitLen="16" halPin="StatusWord" halType="U32"/>
-                    <pdoEntry idx="6064" subIdx="00" bitLen="32" halPin="ActualPosition" halType="float" scale="0.00004291534423828125"/>
-                    <pdoEntry idx="606C" subIdx="00" bitLen="32" halPin="ActualVelocity" halType="float" scale="0.00004291534423828125"/>
+                    <pdoEntry idx="6064" subIdx="00" bitLen="32" halPin="ActualPosition" halType="float" scale="0.000000853068847"/>
+                    <pdoEntry idx="606C" subIdx="00" bitLen="32" halPin="ActualVelocity" halType="float" scale="0.000000853068847"/>
                     <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
             <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="250000"/>
         </slave>
-       
+        <slave idx="1" type="generic" vid="0x00000766" pid="0x00000402" configPdos="true">
+            <!--  PPM  -->
+            <sdoConfig idx="6060" subIdx="0">
+                <sdoDataRaw data="01"/>
+            </sdoConfig>
+            <syncManager idx="0" dir="out"/>
+            <syncManager idx="1" dir="in"/>
+            <!--  Master -> Drive  -->
+            <syncManager idx="2" dir="out">
+                <pdo idx="1600">
+                    <!--  0x6040 Controlword  -->
+                    <pdoEntry idx="6040" subIdx="00" bitLen="16" halType="complex">
+                        <complexEntry bitLen="1" halPin="Control.SwitchOn" halType="bit"/>
+                        <complexEntry bitLen="1" halPin="Control.EnableVoltage" halType="bit"/>
+                        <complexEntry bitLen="1" halPin="Control.QuickStop" halType="bit"/>
+                        <complexEntry bitLen="1" halPin="Control.EnableOperation" halType="bit"/>
+                        <!--  PPM specific (bit4..bit6):  -->
+                        <complexEntry bitLen="1" halPin="Control.Run" halType="bit"/>
+                        <!--  bit4 = New set-point (импульс 1->0)  -->
+                        <complexEntry bitLen="1" halPin="Control.ChangeSetImmediately" halType="bit"/>
+                        <!--  bit5  -->
+                        <complexEntry bitLen="1" halPin="Control.AbsoluteTargetPosition" halType="bit"/>
+                        <!--  bit6 = Relative (0=ABS,1=REL)  -->
+                        <complexEntry bitLen="1"/>
+                        <complexEntry bitLen="1" halPin="Control.FaultReset" halType="bit"/>
+                        <!--  bit8  -->
+                        <complexEntry bitLen="1" halPin="Control.Halt" halType="bit"/>
+                        <!--  bit9 (если поддерживается)  -->
+                        <complexEntry bitLen="6"/>
+                    </pdoEntry>
+                    <!--  Позиция/скорость/ускорение в ГРАДУСАХ  -->
+                    <pdoEntry idx="607A" subIdx="00" bitLen="32" halPin="TargetPosition" halType="float" scale="29127.111111111"/>
+                    <pdoEntry idx="6081" subIdx="00" bitLen="32" halPin="ProfileVelocity" halType="float" scale="29127.111111111"/>
+                    <pdoEntry idx="6083" subIdx="00" bitLen="32" halPin="Acceleration" halType="float" scale="29127.111111111"/>
+                    <pdoEntry idx="6084" subIdx="00" bitLen="32" halPin="Deceleration" halType="float" scale="29127.111111111"/>
+                    <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="1"/>
+                </pdo>
+            </syncManager>
+            <!--  Drive -> Master  -->
+            <syncManager idx="3" dir="in">
+                <pdo idx="1A00">
+                    <pdoEntry idx="603F" subIdx="00" bitLen="16" halPin="ErrorCode" halType="U32"/>
+                    <pdoEntry idx="6041" subIdx="00" bitLen="16" halPin="StatusWord" halType="U32"/>
+                    <pdoEntry idx="6064" subIdx="00" bitLen="32" halPin="ActualPosition" halType="float" scale="0.000034332406"/>
+                    <pdoEntry idx="606C" subIdx="00" bitLen="32" halPin="ActualVelocity" halType="float" scale="0.000034332406"/>
+                    <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="1"/>
+                </pdo>
+            </syncManager>
+            <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="250000"/>
+        </slave>
     </master>
 </masters>
