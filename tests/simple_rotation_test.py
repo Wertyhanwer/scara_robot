@@ -3,8 +3,8 @@ from driver_controller.driver_controller import DriverController
 
 
 def main():
-    MIN_ANGLE = -10.0
-    MAX_ANGLE = 10.0
+    MIN_ANGLE = -1000.0
+    MAX_ANGLE = 1000.0
 
 
     driver_1 = DriverController(0, "test_driver_controller_0")
@@ -23,8 +23,8 @@ def main():
     driver_1.set_deceleration(50)
     driver_2.set_deceleration(50)
 
-    driver_1.set_max_torque(40)
-    driver_2.set_max_torque(40)
+    driver_1.set_max_torque(50)
+    driver_2.set_max_torque(50)
 
 
 
@@ -33,6 +33,7 @@ def main():
 
     pause_check = False
     pause_start_time = 0
+    try_to_stop_count = 0
 
     try:
         while True:
@@ -44,27 +45,45 @@ def main():
                 driver_1.control_stop()
             if driver_2.get_actual_position() >= MAX_ANGLE - 0.2:
                 angle_2 = MIN_ANGLE
-                driver_2.control_stop()
+                driver_1.control_stop()
             if driver_2.get_actual_position() <= MIN_ANGLE + 0.2:
                 angle_2 = MAX_ANGLE
                 driver_2.control_stop()
+               
+            print(abs(driver_1.get_torque()), driver_1.get_max_torque() * 0.9,"#####",abs(driver_2.get_torque()), driver_2.get_max_torque() * 0.9)
+            if abs(driver_1.get_torque()) >=  driver_1.get_max_torque() * 0.9 or abs(driver_2.get_torque()) >=  driver_2.get_max_torque() * 0.9:
+                try_to_stop_count += 1
+                pause_check = True
 
-            if abs(driver_1.get_torque()) >=  driver_1.get_max_torque() * 0.9:
-                driver_1.pause()
-                driver_2.pause()
-                if pause_start_time == 0:
-                    pause_start_time = time.time()
-            elif abs(driver_2.get_torque()) >=  driver_2.get_max_torque() * 0.9:
-                driver_1.pause()
-                driver_2.pause()
-                if pause_start_time == 0:
-                    pause_start_time = time.time()
-            else:
-                pause_start_time = 0
-
-            if time.time() - pause_start_time >= 10:
+                driver_1.control_stop()
                 driver_1.stop()
+                driver_2.control_stop()
                 driver_2.stop()
+
+                print(try_to_stop_count)
+                if try_to_stop_count == 1:
+                    pause_start_time = time.time()
+                if try_to_stop_count >= 3:
+                    return
+            else:
+                if pause_check:
+                    driver_1.start()
+                    driver_1.control_stop()
+                    driver_2.start()
+                    driver_2.control_stop()
+                    time.sleep(2)
+                    driver_1.control_run()
+                    driver_2.control_run()
+                    pause_check = False
+					
+                if (time.time() - pause_start_time) >= 10:
+                    pause_start_time = 0
+                    try_to_stop_count = 0
+
+
+
+
+           
 
             driver_1.set_target_position(angle_1)
             driver_2.set_target_position(angle_2)
