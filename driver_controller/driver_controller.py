@@ -54,3 +54,18 @@ class DriverController:
 
     def set_acceleration(self, acceleration: float):
         self._hal_driver_controller.acceleration = acceleration
+
+    def get_deceleration(self):
+        return self._hal_driver_controller.deceleration
+
+    def set_deceleration(self, deceleration: float):
+        self._hal_driver_controller.deceleration = deceleration
+
+    def get_torque(self):
+        return self._hal_driver_controller.torque
+
+    def set_max_torque(self, torque: float):
+        self._hal_driver_controller.max_torque = torque
+
+    def get_max_torque(self):
+        return self._hal_driver_controller.max_torque

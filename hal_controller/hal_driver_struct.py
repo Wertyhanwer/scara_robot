@@ -21,6 +21,7 @@ class HalDriverStruct:
         self._actual_position = DriverPin(self, DriverPinsNameTemplate.actual_position, hal.HAL_FLOAT, hal.HAL_IN)
         self._status_word = DriverPin(self, DriverPinsNameTemplate.status_word, hal.HAL_FLOAT, hal.HAL_IN)
         self._error_code = DriverPin(self, DriverPinsNameTemplate.error_code, hal.HAL_FLOAT, hal.HAL_IN)
+        self._torque = DriverPin(self, DriverPinsNameTemplate.torque, hal.HAL_FLOAT, hal.HAL_OUT)
 
     def _create_write_component_pins(self):
         self._target_pos = DriverPin(self, DriverPinsNameTemplate.target_pos, hal.HAL_FLOAT, hal.HAL_OUT)
@@ -32,11 +33,14 @@ class HalDriverStruct:
         self._control_run = DriverPin(self, DriverPinsNameTemplate.control_run, hal.HAL_BIT, hal.HAL_OUT)
         self._target_velocity = DriverPin(self, DriverPinsNameTemplate.target_velocity, hal.HAL_FLOAT, hal.HAL_OUT)
         self._acceleration = DriverPin(self, DriverPinsNameTemplate.acceleration, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._deceleration = DriverPin(self, DriverPinsNameTemplate.deceleration, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._max_torque = DriverPin(self, DriverPinsNameTemplate.max_torque, hal.HAL_FLOAT, hal.HAL_OUT)
 
     def _connect_local_pins_to_actual(self):
         hal.connect(self._actual_position.fullname, f"{self._driver_id}-{self._actual_position.name}")
         hal.connect(self._status_word.fullname, f"{self._driver_id}-{self._status_word.name}")
         hal.connect(self._error_code.fullname, f"{self._driver_id}-{self._error_code.name}")
+        hal.connect(self._torque.fullname, f"{self._driver_id}-{self._torque.name}")
 
         hal.connect(self._target_pos.fullname, f"{self._driver_id}-{self._target_pos.name}")
         hal.connect(self._max_speed_degrees.fullname, f"{self._driver_id}-{self._max_speed_degrees.name}")
@@ -46,7 +50,9 @@ class HalDriverStruct:
         hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
         hal.connect(self._control_run.fullname, f"{self._driver_id}-{self._control_run.name}")
         hal.connect(self._target_velocity.fullname, f"{self._driver_id}-{self._target_velocity.name}")
-        hal.close(self._acceleration.fullname, f"{self._driver_id}-{self._acceleration.name}")
+        hal.connect(self._acceleration.fullname, f"{self._driver_id}-{self._acceleration.name}")
+        hal.connect(self._deceleration.fullname, f"{self._driver_id}-{self._deceleration.name}")
+        hal.connect(self._max_torque.fullname, f"{self._driver_id}-{self._max_torque.name}")
         
 
 
@@ -70,6 +76,10 @@ class HalDriverStruct:
     @property
     def error_code(self):
         return self._hal_control_component[self._error_code.name]
+
+    @property
+    def torque(self):
+        return self._hal_control_component[self._torque.name]
 
     @property
     def target_pos(self):
@@ -142,3 +152,19 @@ class HalDriverStruct:
     @acceleration.setter
     def acceleration(self, acceleration: float):
         self._hal_control_component[self._acceleration.name] = acceleration
+
+    @property
+    def deceleration(self):
+        return self._hal_control_component[self._deceleration.name]
+
+    @deceleration.setter
+    def deceleration(self, deceleration: float):
+        self._hal_control_component[self._deceleration.name] = deceleration
+
+    @property
+    def max_torque(self):
+        return self._hal_control_component[self._max_torque.name]
+
+    @max_torque.setter
+    def max_torque(self, torque: float):
+        self._hal_control_component[self._max_torque.name] = torque

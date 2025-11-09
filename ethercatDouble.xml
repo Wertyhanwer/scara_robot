@@ -33,7 +33,7 @@
                     <pdoEntry idx="6081" subIdx="00" bitLen="32" halPin="ProfileVelocity" halType="float" scale="1165084,44444"/>
                     <pdoEntry idx="6083" subIdx="00" bitLen="32" halPin="Acceleration" halType="float" scale="1165084,44444"/>
                     <pdoEntry idx="6084" subIdx="00" bitLen="32" halPin="Deceleration" halType="float" scale="1165084,44444"/>
-                    <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="0.1"/>
+                    <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
             <syncManager idx="3" dir="in">
@@ -42,7 +42,7 @@
                     <pdoEntry idx="6041" subIdx="00" bitLen="16" halPin="StatusWord" halType="U32"/>
                     <pdoEntry idx="6064" subIdx="00" bitLen="32" halPin="ActualPosition" halType="float" scale="0.000000853068847"/>
                     <pdoEntry idx="606C" subIdx="00" bitLen="32" halPin="ActualVelocity" halType="float" scale="0.000000853068847"/>
-                    <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="0.1"/>
+                    <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
             <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="250000"/>
@@ -82,7 +82,7 @@
                     <pdoEntry idx="6081" subIdx="00" bitLen="32" halPin="ProfileVelocity" halType="float" scale="29127.111111111"/>
                     <pdoEntry idx="6083" subIdx="00" bitLen="32" halPin="Acceleration" halType="float" scale="29127.111111111"/>
                     <pdoEntry idx="6084" subIdx="00" bitLen="32" halPin="Deceleration" halType="float" scale="29127.111111111"/>
-                    <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="0.1"/>
+                    <pdoEntry idx="6072" subIdx="00" bitLen="16" halPin="MaxTorque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
             <!--  Drive -> Master  -->
@@ -92,7 +92,7 @@
                     <pdoEntry idx="6041" subIdx="00" bitLen="16" halPin="StatusWord" halType="U32"/>
                     <pdoEntry idx="6064" subIdx="00" bitLen="32" halPin="ActualPosition" halType="float" scale="0.000034332406"/>
                     <pdoEntry idx="606C" subIdx="00" bitLen="32" halPin="ActualVelocity" halType="float" scale="0.000034332406"/>
-                    <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="0.1"/>
+                    <pdoEntry idx="6077" subIdx="00" bitLen="16" halPin="Torque" halType="float" scale="1"/>
                 </pdo>
             </syncManager>
             <dcConf assignActivate="300" sync0Cycle="*1" sync0Shift="250000"/>

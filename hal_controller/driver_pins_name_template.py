@@ -5,6 +5,7 @@ class DriverPinsNameTemplate(Enum):
     actual_position = "actual-pos"
     status_word = "statusword"
     error_code = "errorcode"
+    torque = "torque"
 
     target_pos = "target-pos"
     max_speed_degrees = "max-speed-deg"
@@ -15,3 +16,5 @@ class DriverPinsNameTemplate(Enum):
     control_run = "control-run"
     target_velocity = "target-vel"
     acceleration = "accel"
+    deceleration = "decel"
+    max_torque = "max-torque"
