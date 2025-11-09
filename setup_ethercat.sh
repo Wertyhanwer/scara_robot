@@ -66,6 +66,7 @@ halcmd net 0-actual-vel      lcec.0.0.ActualVelocity
 halcmd net 0-statusword      lcec.0.0.StatusWord
 halcmd net 0-errorcode       lcec.0.0.ErrorCode
 halcmd net 0-torque          lcec.0.0.Torque
+halcmd net 0-max-torque          lcec.0.0.MaxTorque
 
 ######### Y — цели/факты
 # halcmd net 1-target-pos      lcec.0.1.TargetPosition    # <-- НЕ ДУБЛИРУЕМ
@@ -75,7 +76,7 @@ halcmd net 1-actual-vel      lcec.0.1.ActualVelocity
 halcmd net 1-statusword      lcec.0.1.StatusWord
 halcmd net 1-errorcode       lcec.0.1.ErrorCode
 halcmd net 1-torque          lcec.0.1.Torque
-
+halcmd net 1-max-torque          lcec.0.1.MaxTorque
 ######### ГРУППОВЫЕ сигналы (если нужно крутить обе оси одной ручкой)
 halcmd net 0-accel  lcec.0.0.Acceleration  
 halcmd net 0-decel  lcec.0.0.Deceleration  
