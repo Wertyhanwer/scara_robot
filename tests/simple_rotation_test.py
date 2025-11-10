@@ -3,8 +3,8 @@ from driver_controller.driver_controller import DriverController
 
 
 def main():
-    MIN_ANGLE = -1000.0
-    MAX_ANGLE = 1000.0
+    MIN_ANGLE = -15.0
+    MAX_ANGLE = 15.0
 
 
     driver_1 = DriverController(0, "test_driver_controller_0")
@@ -23,8 +23,8 @@ def main():
     driver_1.set_deceleration(50)
     driver_2.set_deceleration(50)
 
-    driver_1.set_max_torque(50)
-    driver_2.set_max_torque(50)
+    driver_1.set_max_torque(350)
+    driver_2.set_max_torque(140)
 
 
 
