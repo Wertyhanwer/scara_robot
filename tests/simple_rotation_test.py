@@ -1,8 +1,13 @@
 import time
+import subprocess
 from driver_controller.driver_controller import DriverController
 
 
 def main():
+    subprocess.run(["halrun", "-U"])
+    # Запуск скрипта и ожидание завершения
+    subprocess.run(["./setup_ethercat.sh"])
+    # Вывод результата выполнения скрипта
     MIN_ANGLE = -15.0
     MAX_ANGLE = 15.0
 
