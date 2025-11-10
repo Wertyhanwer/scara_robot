@@ -3,8 +3,8 @@ from driver_controller.driver_controller import DriverController
 
 
 def main():
-    MIN_ANGLE = -15.0
-    MAX_ANGLE = 15.0
+    MIN_ANGLE = -1000.0
+    MAX_ANGLE = 1000.0
 
 
     driver_1 = DriverController(0, "test_driver_controller_0")
@@ -54,11 +54,11 @@ def main():
             if abs(driver_1.get_torque()) >=  driver_1.get_max_torque() * 0.9 or abs(driver_2.get_torque()) >=  driver_2.get_max_torque() * 0.9:
                 try_to_stop_count += 1
                 pause_check = True
-      
+
                 driver_1.pause()
                 driver_2.pause()
                 time.sleep(1)
-      
+
                 print(try_to_stop_count)
                 if try_to_stop_count == 1:
                     pause_start_time = time.time()
@@ -78,6 +78,9 @@ def main():
                 if (time.time() - pause_start_time) >= 10:
                     pause_start_time = 0
                     try_to_stop_count = 0
+
+
+
 
            
 
