@@ -1,0 +1,9 @@
+=== RUN START Mon Nov 10 04:21:26 PM CET 2025 ===
+[whoami] jetson
+[conda] CONDA_PREFIX=/home/jetson/miniconda3
+[conda] CONDA_DEFAULT_ENV=base
+[python] which python: /home/jetson/miniconda3/bin/python
+[python] system python: /usr/bin/python3
+[env] PYTHONPATH=<empty>
+[env] LINUXCNC_TOP=<unset>
+[env] PATH=/home/jetson/miniconda3/bin:/home/jetson/miniconda3/condabin:/home/jetson/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin

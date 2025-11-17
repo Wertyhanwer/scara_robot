@@ -1,0 +1,22 @@
+=== RUN START Mon Nov 10 04:51:20 PM CET 2025 ===
+[whoami] jetson
+[conda] CONDA_DEFAULT_ENV=base
+[python] /home/jetson/miniconda3/bin/python
+[env] PYTHONPATH=/home/jetson/Desktop/scara_robot:
+[env] PATH=/home/jetson/miniconda3/bin:/home/jetson/miniconda3/condabin:/home/jetson/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+Waited 3 seconds for master.  giving up.
+Note: Using POSIX realtime
+Загружается конфигурация из /home/jetson/Desktop/scara_robot/tests/ethercatDouble.xml
+Note: Using POSIX realtime
+Настраиваются лимиты позиции, скорости и ускорения...
+Готово.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/jetson/Desktop/scara_robot/tests/simple_rotation_test.py", line 4, in <module>
+    from driver_controller.driver_controller import DriverController
+  File "/home/jetson/Desktop/scara_robot/driver_controller/driver_controller.py", line 3, in <module>
+    from hal_controller.hal_driver_struct import HalDriverStruct
+  File "/home/jetson/Desktop/scara_robot/hal_controller/hal_driver_struct.py", line 1, in <module>
+    import hal
+ModuleNotFoundError: No module named 'hal'

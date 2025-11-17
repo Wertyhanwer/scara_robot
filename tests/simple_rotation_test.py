@@ -1,12 +1,15 @@
 import time
 import subprocess
+
 from driver_controller.driver_controller import DriverController
 
 
 def main():
-    subprocess.run(["halrun", "-U"])
+    #subprocess.run(["halrun", "-U"])
+    #time.sleep(3)
     # Запуск скрипта и ожидание завершения
-    subprocess.run(["./../setup_ethercat.sh"])
+    #subprocess.run(["./setup_ethercat.sh"])
+    #time.sleep(3)
     # Вывод результата выполнения скрипта
     MIN_ANGLE = -15.0
     MAX_ANGLE = 15.0
@@ -19,8 +22,8 @@ def main():
     driver_1.start()
     driver_2.start()
 
-    driver_1.set_target_velocity(25)
-    driver_2.set_target_velocity(25)
+    driver_1.set_target_velocity(35)
+    driver_2.set_target_velocity(35)
 
     driver_1.set_acceleration(50)
     driver_2.set_acceleration(50)
@@ -28,25 +31,25 @@ def main():
     driver_1.set_deceleration(50)
     driver_2.set_deceleration(50)
 
-    driver_1.set_max_torque(350)
-    driver_2.set_max_torque(140)
+    driver_1.set_max_torque(320)
+    driver_2.set_max_torque(135)
 
 
 
     time.sleep(3)
-    angle_1 = angle_2 = MAX_ANGLE
-
+    angle_1 = 20
+    angle_2 = MAX_ANGLE
     pause_check = False
     pause_start_time = 0
     try_to_stop_count = 0
 
     try:
         while True:
-            if driver_1.get_actual_position() >= MAX_ANGLE - 0.2:
-                angle_1 = MIN_ANGLE
+            if driver_1.get_actual_position() >= 20 - 0.2:
+                angle_1 = -20
                 driver_1.control_stop()
-            if driver_1.get_actual_position() <= MIN_ANGLE + 0.2:
-                angle_1 = MAX_ANGLE
+            if driver_1.get_actual_position() <= -20 + 0.2:
+                angle_1 = 20
                 driver_1.control_stop()
             if driver_2.get_actual_position() >= MAX_ANGLE - 0.2:
                 angle_2 = MIN_ANGLE
@@ -62,7 +65,7 @@ def main():
 
                 driver_1.pause()
                 driver_2.pause()
-                time.sleep(1)
+                time.sleep(2)
 
                 print(try_to_stop_count)
                 if try_to_stop_count == 1:

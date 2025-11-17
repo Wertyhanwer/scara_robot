@@ -8,7 +8,7 @@
             <sdoConfig idx="6060" subIdx="0">
                 <sdoDataRaw data="01"/>
             </sdoConfig>
-  
+             
             <syncManager idx="0" dir="out"/>
             <syncManager idx="1" dir="in"/>
             <syncManager idx="2" dir="out">
@@ -53,8 +53,6 @@
             <sdoConfig idx="6060" subIdx="0">
                 <sdoDataRaw data="01"/>
             </sdoConfig>
-         
-
             <syncManager idx="0" dir="out"/>
             <syncManager idx="1" dir="in"/>
             <!--  Master -> Drive  -->
