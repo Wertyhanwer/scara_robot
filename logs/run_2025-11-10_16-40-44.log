@@ -1,6 +1,0 @@
-=== RUN START Mon Nov 10 04:40:44 PM CET 2025 ===
-[whoami] jetson
-[conda] CONDA_DEFAULT_ENV=base
-[python] /home/jetson/miniconda3/bin/python
-[env] PYTHONPATH=/home/jetson/Desktop/scara_robot:
-[env] PATH=/home/jetson/miniconda3/bin:/home/jetson/miniconda3/condabin:/home/jetson/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin

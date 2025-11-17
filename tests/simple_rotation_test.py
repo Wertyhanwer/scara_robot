@@ -1,7 +1,6 @@
 import time
-import subprocess
 
-from driver_controller.driver_controller import DriverController
+from controllers.driver_controller.driver_controller import DriverController
 
 
 def main():

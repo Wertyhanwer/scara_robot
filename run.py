@@ -1,6 +1,5 @@
 import time
-
-from driver_controller.driver_controller import DriverController
+from controllers.driver_controller.driver_controller import DriverController
 
 driver_controller = DriverController(0, "driver_controller")
 driver_controller.start()
