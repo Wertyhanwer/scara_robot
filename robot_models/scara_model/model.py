@@ -10,6 +10,7 @@ class ScaraModel:
         self._config = config
         self._upper_arm_length = config.upper_arm_length
         self._forearm_length = config.forearm_length
+        self._rotate_restrictions_deg = config.rotate_restrictions_deg
 
         self._init_robot_model()
         self._init_robot_restrictions()
@@ -31,8 +32,8 @@ class ScaraModel:
     def _init_robot_restrictions(self):
         # Устанавливаем ограничения углов поворота
         self._robot.qlim = np.array([
-            [-np.radians(135), np.radians(135)],  # -135° to 135°
-            [-np.radians(135), np.radians(135)]  # -135° to 135°
+            [-np.radians(self._rotate_restrictions_deg), np.radians(self._rotate_restrictions_deg)],  # -135° to 135°
+            [-np.radians(self._rotate_restrictions_deg), np.radians(self._rotate_restrictions_deg)]  # -135° to 135°
         ])
 
     def get_angle_degrees_from_coordinates(self, target_x, target_y):

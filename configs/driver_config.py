@@ -12,7 +12,7 @@ class HalDriverConfig(HalDriverConfigData):
     )
 
     # Приватные атрибуты (автоматически исключаются из сериализации)
-    _config_path: str = PrivateAttr(default="hal_driver_config.json")
+    _config_path: str = PrivateAttr(default="configs_json/hal_driver_config.json")
     _initialized: bool = PrivateAttr(default=False)
 
     def model_post_init(self, __context):

@@ -26,6 +26,9 @@ class DriverController:
         time.sleep(1)  # TODO: Избавиться от подобного подхода когда не будет гореть
         self._hal_driver_controller.enable_drive_button = False
 
+    def get_safety_parameters(self):
+        ...
+
     def poweroff(self):
         ...
 
