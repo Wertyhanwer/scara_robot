@@ -5,3 +5,5 @@ class BasicCheckUtil(ABC):
     @abstractmethod
     def check_state(self):
         ...
+
+

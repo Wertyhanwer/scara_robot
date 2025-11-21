@@ -3,7 +3,7 @@ from safety_monitors_params_to_check import SafetyMonitorsParamsToCheck
 from controllers.driver_controller.driver_controller import DriverController
 
 class SafetyMonitorCheckUtil(BasicCheckUtil):
-    def __init__(self, driver: DriverController, params_to_check: SafetyMonitorsParamsToCheck):
+    def __init__(self, driver: DriverController, params_to_check: SafetyMonitorsParamsToCheck = SafetyMonitorsParamsToCheck()):
         self._driver = driver
         self._params_to_check = params_to_check
 

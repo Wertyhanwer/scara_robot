@@ -32,6 +32,7 @@ class HalDriverStruct:
         self._enable_drive_button = DriverPin(self, DriverPinsNameTemplate.enable_drive_button, hal.HAL_BIT, hal.HAL_OUT)
         self._control_run = DriverPin(self, DriverPinsNameTemplate.control_run, hal.HAL_BIT, hal.HAL_OUT)
         self._target_velocity = DriverPin(self, DriverPinsNameTemplate.target_velocity, hal.HAL_FLOAT, hal.HAL_OUT)
+        self._max_velocity = DriverPin(self, DriverPinsNameTemplate.max_velocity, hal.HAL_FLOAT, hal.HAL_OUT)
         self._acceleration = DriverPin(self, DriverPinsNameTemplate.acceleration, hal.HAL_FLOAT, hal.HAL_OUT)
         self._deceleration = DriverPin(self, DriverPinsNameTemplate.deceleration, hal.HAL_FLOAT, hal.HAL_OUT)
         self._max_torque = DriverPin(self, DriverPinsNameTemplate.max_torque, hal.HAL_FLOAT, hal.HAL_OUT)
@@ -50,6 +51,7 @@ class HalDriverStruct:
         hal.connect(self._enable_drive_button.fullname, f"{self._driver_id}-{self._enable_drive_button.name}")
         hal.connect(self._control_run.fullname, f"{self._driver_id}-{self._control_run.name}")
         hal.connect(self._target_velocity.fullname, f"{self._driver_id}-{self._target_velocity.name}")
+        hal.connect(self._max_velocity.fullname, f"{self._driver_id}-{self._max_velocity.name}")
         hal.connect(self._acceleration.fullname, f"{self._driver_id}-{self._acceleration.name}")
         hal.connect(self._deceleration.fullname, f"{self._driver_id}-{self._deceleration.name}")
         hal.connect(self._max_torque.fullname, f"{self._driver_id}-{self._max_torque.name}")
@@ -144,6 +146,14 @@ class HalDriverStruct:
     @target_velocity.setter
     def target_velocity(self, velocity: float):
         self._hal_control_component[self._target_velocity.name] = velocity
+
+    @property
+    def max_velocity(self):
+        return self._hal_control_component[self._max_velocity.name]
+
+    @max_velocity.setter
+    def max_velocity(self, velocity: float):
+        self._hal_control_component[self._max_velocity.name] = velocity
 
     @property
     def acceleration(self):

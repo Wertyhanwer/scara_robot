@@ -15,6 +15,7 @@ class DriverPinsNameTemplate(Enum):
     enable_drive_button = "enable-drive-button"
     control_run = "control-run"
     target_velocity = "target-vel"
+    max_velocity = "max-vel"
     acceleration = "accel"
     deceleration = "decel"
     max_torque = "max-torque"

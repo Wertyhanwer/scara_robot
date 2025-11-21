@@ -2,7 +2,7 @@ from robot_models.scara_model.model import ScaraModel
 from controllers.driver_controller.driver_controller import DriverController
 
 
-class MasterController:
+class MasterControllerScara:
     def __init__(self):
         self._driver_controller_0 = DriverController(0, "driver_controller_0")
         self._driver_controller_1 = DriverController(1, "driver_controller_1")

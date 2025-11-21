@@ -1,11 +1,15 @@
 import time
 
 from controllers.hal_controller.hal_driver_struct import HalDriverStruct
+from auxiliary_utilities.сyclic_pseudo_real_time_checks.safety_monitor.safety_monitor_check_util import SafetyMonitorCheckUtil
+from work_cycles.check_util_loop import CheckUtilLoop
 
 
 class DriverController:
     def __init__(self, drive_number: int, control_component_name: str):
         self._hal_driver_controller = HalDriverStruct(drive_number, control_component_name)
+        self._safety_monitor = SafetyMonitorCheckUtil(self)
+        self._check_util_loop = CheckUtilLoop(self._safety_monitor)
 
     def startup(self):
         ...
@@ -14,6 +18,7 @@ class DriverController:
         self._hal_driver_controller.estop_button = True
         time.sleep(1) #TODO: Избавиться от подобного подхода когда не будет гореть
         self._hal_driver_controller.enable_drive_button = True
+        self._check_util_loop.start()
 
     def pause(self):
         self._hal_driver_controller.enable_drive_button = False
@@ -25,6 +30,7 @@ class DriverController:
         self._hal_driver_controller.estop_button = False
         time.sleep(1)  # TODO: Избавиться от подобного подхода когда не будет гореть
         self._hal_driver_controller.enable_drive_button = False
+        self._check_util_loop.stop()
 
     def get_safety_parameters(self):
         ...
@@ -35,7 +41,7 @@ class DriverController:
     def set_max_speed(self, speed: int):
         ...
 
-    def set_target_position(self, position: int):
+    def set_target_position(self, position: float):
         self._hal_driver_controller.target_pos = position
    
     def get_target_position(self):
